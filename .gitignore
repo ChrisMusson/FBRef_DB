@@ -1,0 +1,4 @@
+web_pages/
+__pycache__/
+test.db
+test.py
