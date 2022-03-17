@@ -5,6 +5,9 @@ from utils import *
 
 
 def get_match_data(competition, season):
+    # Note that matches where the full match data is not yet available will still be picked up here and inserted
+    # This is okay because every record is deleted from the specified (competition, season) pair each time, so the newly
+    # updated matches will be put back into the Match table when they get updated
     data = []
     with open("db_helper.json", "r") as f:
         url = json.load(f)["competition_urls"][competition][season]

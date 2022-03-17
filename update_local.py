@@ -32,6 +32,10 @@ def update_local(competition, season):
                 url = f"https://fbref.com/en/matches/{match_id}/"
                 resp = s.get(url).text
 
+                if "Advanced data not yet available" in resp:
+                    print(f"Full data for {competition} {season} match {match_id} is not yet available\n")
+                    continue
+
                 with open(os.path.join("web_pages", competition, season, match_id), 'w') as f:
                     f.write(resp)
     else:
