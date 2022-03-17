@@ -70,7 +70,16 @@ def insert_players(cursor, competition, season, match_ids):
     for t in db_tables:
         season_data[t] = []
 
+    '''
+    On the fbref website, Udinese have been awarded an automatic 3-0 win for the match daac9099 due to
+    Salernitana not being able to field a team due to COVID. However, the court of appeal has ruled that
+    the game must be replayed, and is due to be replayed in the coming weeks
+    TODO: remove this when the match has been resolved
+    '''
+    ignored_matches = set(["daac9099"])  # set of matches to ignore for various reasons
     for number, match_id in enumerate(match_ids):
+        if match_id in ignored_matches:
+            continue
         print(f"{competition} {season} - Parsing match number {number + 1} of {len(match_ids)} - ID: {match_id}")
         match_data = get_match_data(competition, season, match_id)
         if len(match_data) < 10:
@@ -89,3 +98,5 @@ def insert_players(cursor, competition, season, match_ids):
 
     for k, v in season_data.items():
         insert(cursor, k.title(), v)
+
+    print("Insertion finished\n\n")
