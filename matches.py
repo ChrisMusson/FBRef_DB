@@ -4,10 +4,10 @@ from bs4 import BeautifulSoup
 from utils import *
 
 
-def get_match_data(season):
+def get_match_data(competition, season):
     data = []
     with open("db_helper.json", "r") as f:
-        url = json.load(f)["competition_urls"][season]
+        url = json.load(f)["competition_urls"][competition][season]
 
     with requests.Session() as s:
         table = BeautifulSoup(s.get(url).text, "html.parser").find("table")
@@ -29,7 +29,7 @@ def get_match_data(season):
     return data
 
 
-def update_matches(season, cursor):
-    cursor.execute(f"DELETE FROM Match WHERE season = ?", (season,))
-    match_data = get_match_data(season)
+def update_matches(cursor, competition, season):
+    cursor.execute(f"DELETE FROM Match WHERE competition = ? AND season = ?", (competition, season))
+    match_data = get_match_data(competition, season)
     insert(cursor, "Match", match_data)

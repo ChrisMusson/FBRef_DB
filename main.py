@@ -8,20 +8,23 @@ from update_local import update_local
 from utils import *
 
 
-def main(database_file, season="2021-2022"):
+def main(database_file, competitions=["Premier_League"], seasons=["2021-2022"]):
     connection = sqlite3.connect(database_file)
     cursor = connection.cursor()
     create_database(cursor)
-    update_local(season)
-    update_matches(season, cursor)
 
-    db_matches = get_matches_in_database(season, cursor)
-    local_matches = set(os.listdir(os.path.join("web_pages", season)))
+    for competition in competitions:
+        for season in seasons:
+            update_local(competition, season)
+            update_matches(cursor, competition, season)
 
-    matches_to_add = local_matches - db_matches
-    insert_players(season, list(matches_to_add), cursor)
+            db_matches = get_matches_in_database(cursor, competition, season)
+            local_matches = set(os.listdir(os.path.join("web_pages", competition, season)))
 
-    connection.commit()
+            matches_to_add = local_matches - db_matches
+            insert_players(cursor, competition, season, list(matches_to_add))
+
+            connection.commit()
     connection.close()
 
 

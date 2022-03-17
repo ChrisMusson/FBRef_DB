@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 from utils import *
 
 
-def get_match_data(season, match_id):
-    with open(os.path.join("web_pages", season, match_id), "r") as f:
+def get_match_data(competition, season, match_id):
+    with open(os.path.join("web_pages", competition, season, match_id), "r") as f:
         return BeautifulSoup(f.read(), "lxml").find_all("table")
 
 
@@ -48,9 +48,9 @@ def get_data(match_id, tables, i):
     return data
 
 
-def insert_players(season, match_ids, cursor):
+def insert_players(cursor, competition, season, match_ids):
     if match_ids == []:
-        print(f"Database is up to date for {season}")
+        print(f"Database is up to date for {competition} {season}\n\n")
         return
     player_info = []
     goalkeeper = []
@@ -62,8 +62,8 @@ def insert_players(season, match_ids, cursor):
         season_data[t] = []
 
     for number, match_id in enumerate(match_ids):
-        print(f"{season} - {number + 1}: {match_id}")
-        match_data = get_match_data(season, match_id)
+        print(f"{competition} {season} - Parsing match number {number + 1} of {len(match_ids)} - ID: {match_id}")
+        match_data = get_match_data(competition, season, match_id)
 
         player_info += get_player_info(match_id, match_data)
         goalkeeper += get_goalkeeper(match_id, match_data)
@@ -71,6 +71,7 @@ def insert_players(season, match_ids, cursor):
         for i, t in enumerate(db_tables):
             season_data[t] += get_data(match_id, match_data, i)
 
+    print(f"Inserting player data for {competition} {season}")
     insert(cursor, "Player_info", player_info)
     insert(cursor, "Goalkeeper", goalkeeper)
 

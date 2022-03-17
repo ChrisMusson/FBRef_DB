@@ -4,10 +4,10 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def update_local(season):
-    stored_files = set(os.listdir(os.path.join("web_pages", season)))
+def update_local(competition, season):
+    stored_files = set(os.listdir(os.path.join("web_pages", competition, season)))
     with open("db_helper.json", "r") as f:
-        url = json.load(f)["competition_urls"][season]
+        url = json.load(f)["competition_urls"][competition][season]
 
     web_match_ids = set()
     with requests.Session() as s:
@@ -27,12 +27,12 @@ def update_local(season):
     if n > 0:
         print(f"Fetching {n} {'matches' if n > 1 else 'match'}")
         with requests.Session() as s:
-            for match_id in missing_match_ids:
-                print(f"Fetching match with id {match_id}")
+            for number, match_id in enumerate(missing_match_ids):
+                print(f"{competition} {season}: Fetching match number {number + 1} of {n} - ID: {match_id}")
                 url = f"https://fbref.com/en/matches/{match_id}/"
                 resp = s.get(url).text
 
-                with open(os.path.join("web_pages", season, match_id), 'w') as f:
+                with open(os.path.join("web_pages", competition, season, match_id), 'w') as f:
                     f.write(resp)
     else:
-        print("Local files are up to date")
+        print(f"Local files are up to date for {competition} {season}")
