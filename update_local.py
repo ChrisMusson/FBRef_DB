@@ -14,6 +14,8 @@ def update_local(competition, season):
         r = BeautifulSoup(s.get(url).text, "html.parser")
         rows = r.find_all("td", {"data-stat": "score"})
         for row in rows:
+            if row.text == "":
+                continue
             link = row.find("a")
             if link:
                 web_match_ids.add(link["href"].split(
