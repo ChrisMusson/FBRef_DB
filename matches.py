@@ -20,12 +20,13 @@ def get_match_data(competition, season):
 
             # convert each field to the correct datatype
             p1 = [match_id] + row[:4]
-            p2 = [float(row[4])] + \
-                list(map(int, row[5].split("–"))) + [float(row[6])]
-            p3 = [row[7]] + [int(row[8].replace(",", ""))
+            p2 = float(row[4]) if row[4] != "" else None
+            p3 = list(map(int, row[5].split("–")))
+            p4 = float(row[6]) if row[6] != "" else None
+            p5 = [row[7]] + [int(row[8].replace(",", ""))
                              if row[8] != "" else ""] + row[9:]
 
-            data.append([season] + p1 + p2 + p3)
+            data.append([competition, season] + p1 + [p2] + p3 + [p4] + p5)
     return data
 
 
