@@ -15,11 +15,19 @@ def get_match_data(competition, season):
     with requests.Session() as s:
         table = BeautifulSoup(s.get(url).text, "html.parser").find("table")
         rows = table.find_all("tr")
+
+        # for the bundesliga, e.g., the first column of the table is dedicated to either 'regular season'
+        # or promotion-relegation playoff. This has to be taken into account when deciding which
+        # columns to look at
+        multistage: bool = rows[0].find("th")["data-stat"] == "round"
+
         for row in rows[1:]:
             if row.find_all("td")[-3].text == "":  # if referee field is blank
                 continue
             match_id = row.find_all("a")[-1]["href"].split("/")[3]
-            row = [x.text.strip() for x in row.find_all("td")][:-2]
+
+            # if the season has multiple stages, start from column index 1 instead of 0
+            row = [x.text.strip() for x in row.find_all("td")][multistage:-2]
 
             # convert each field to the correct datatype
             p1 = [match_id] + row[:4]
