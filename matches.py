@@ -2,6 +2,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 from utils import *
+import time
 
 
 def get_match_data(competition, season):
@@ -13,7 +14,8 @@ def get_match_data(competition, season):
         url = json.load(f)["competition_urls"][competition][season]
 
     with requests.Session() as s:
-        table = BeautifulSoup(s.get(url).text, "html.parser").find("table")
+        time.sleep(3)
+        table = BeautifulSoup(s.get(url).text, "lxml").find("table")
         rows = table.find_all("tr")
 
         # for the bundesliga, e.g., the first column of the table is dedicated to either 'regular season'
@@ -42,6 +44,7 @@ def get_match_data(competition, season):
 
 
 def update_matches(cursor, competition, season):
-    cursor.execute(f"DELETE FROM Match WHERE competition = ? AND season = ?", (competition, season))
+    cursor.execute(
+        f"DELETE FROM Match WHERE competition = ? AND season = ?", (competition, season))
     match_data = get_match_data(competition, season)
     insert(cursor, "Match", match_data)

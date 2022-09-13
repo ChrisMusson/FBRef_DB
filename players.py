@@ -4,7 +4,7 @@ from utils import *
 
 
 def get_match_data(competition, season, match_id):
-    with open(os.path.join("web_pages", competition, season, match_id), "r") as f:
+    with open(os.path.join("web_pages", competition, season, match_id), "r", encoding="utf-8") as f:
         return BeautifulSoup(f.read(), "lxml").find_all("table")
 
 
@@ -20,7 +20,7 @@ def get_player_info(match_id, tables):
             home_away = "H" if table_num < 10 else "A"
             rest_of_row = clean_row([x.text for x in row.find_all("td")][:5])
             data.append([match_id, player_id, player_name,
-                        home_away] + rest_of_row)
+                         home_away] + rest_of_row)
     return data
 
 
@@ -49,7 +49,8 @@ def get_data(match_id, tables, i):
 
 
 def handle_insert_player_error(match_id):
-    print(f"\nProblem with match ID {match_id} - Not enough tables in the web page.")
+    print(
+        f"\nProblem with match ID {match_id} - Not enough tables in the web page.")
     print(f"https://fbref.com/en/matches/{match_id}/")
     print("This could be because the match was abandoned, never played, or otherwise affected")
     print("If the match was not abandoned, you believe this should work, and this problem persists, please raise an issue at")
@@ -59,7 +60,7 @@ def handle_insert_player_error(match_id):
 
 def insert_players(cursor, competition, season, match_ids):
     if match_ids == []:
-        print(f"Database is up to date for {competition} {season}\n\n")
+        print(f"Database is up to date for {competition} {season}\n")
         return
     player_info = []
     goalkeeper = []
@@ -70,16 +71,7 @@ def insert_players(cursor, competition, season, match_ids):
     for t in db_tables:
         season_data[t] = []
 
-    '''
-    On the fbref website, Udinese have been awarded an automatic 3-0 win for the match daac9099 due to
-    Salernitana not being able to field a team due to COVID. However, the court of appeal has ruled that
-    the game must be replayed, and is due to be replayed in the coming weeks
-    TODO: remove this when the match has been resolved
-    '''
-    ignored_matches = set(["daac9099"])  # set of matches to ignore for various reasons
     for number, match_id in enumerate(match_ids):
-        if match_id in ignored_matches:
-            continue
         print(f"{competition} {season} - Parsing match number {number + 1} of {len(match_ids)} - ID: {match_id}")
         match_data = get_match_data(competition, season, match_id)
         if len(match_data) < 10:
