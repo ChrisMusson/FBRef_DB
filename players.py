@@ -32,7 +32,7 @@ def get_goalkeeper(match_id, tables):
         rows = tables[table_num].find_all("tr")[2:]
         for row in rows:
             player_id = row.find("th").find("a")["href"].split("/")[3]
-            rest_of_row = clean_row([x.text for x in row.find_all("td")][4:])
+            rest_of_row = clean_row([x.text for x in row.find_all("td")][3:])
             data.append([match_id, player_id] + rest_of_row)
     return data
 
