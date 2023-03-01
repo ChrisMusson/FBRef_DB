@@ -2,7 +2,7 @@
 
 ## Usage
 
-1. Download the .zip files for the leagues you want in your databse from this [MediaFire link](https://www.mediafire.com/folder/7s88iqido6nvc/FBRef). (Last updated 16/Feb/2023)
+1. Download the .zip files for the leagues you want in your databse from this [MediaFire link](https://www.mediafire.com/folder/7s88iqido6nvc/FBRef). (Last updated 01/Mar/2023)
 
 1. Unzip those dowloaded files to the `web_pages/` folder - this creates a folder containing the html of the fbref web page for every league match since the start of the 2017-2018 season for your chosen leagues. The structure of the folders must be `./web_pages/<league>/<season>/file`
 
