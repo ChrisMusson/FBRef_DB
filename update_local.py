@@ -47,7 +47,8 @@ def update_local(competition, season):
 
     stored_files = set(os.listdir(os.path.join("web_pages", competition, season)))
     with open("db_helper.json", "r") as f:
-        url = json.load(f)["competition_urls"][competition][season]
+        competition_id = json.load(f)["competition_ids"][competition]
+        url = f"https://fbref.com/en/comps/{competition_id}/{season}/schedule/"
 
     web_match_ids = set()
     with requests.Session() as s:

@@ -11,7 +11,8 @@ def get_match_data(competition, season):
     # updated matches will be put back into the Match table when they get updated
     data = []
     with open("db_helper.json", "r") as f:
-        url = json.load(f)["competition_urls"][competition][season]
+        competition_id = json.load(f)["competition_ids"][competition]
+        url = f"https://fbref.com/en/comps/{competition_id}/{season}/schedule/"
 
     with requests.Session() as s:
         time.sleep(3)

@@ -193,46 +193,11 @@
       "average_distance_of_defensive_action": "float"
     }
   },
-  "competition_urls": {
-    "Premier_League": {
-      "2017-2018": "https://fbref.com/en/comps/9/2017-2018/schedule/2017-2018-Premier-League-Scores-and-Fixtures",
-      "2018-2019": "https://fbref.com/en/comps/9/2018-2019/schedule/2018-2019-Premier-League-Scores-and-Fixtures",
-      "2019-2020": "https://fbref.com/en/comps/9/2019-2020/schedule/2019-2020-Premier-League-Scores-and-Fixtures",
-      "2020-2021": "https://fbref.com/en/comps/9/2020-2021/schedule/2020-2021-Premier-League-Scores-and-Fixtures",
-      "2021-2022": "https://fbref.com/en/comps/9/2021-2022/schedule/2020-2021-Premier-League-Scores-and-Fixtures",
-      "2022-2023": "https://fbref.com/en/comps/9/schedule/Premier-League-Scores-and-Fixtures"
-    },
-    "Bundesliga": {
-      "2017-2018": "https://fbref.com/en/comps/20/2017-2018/schedule/2017-2018-Bundesliga-Scores-and-Fixtures",
-      "2018-2019": "https://fbref.com/en/comps/20/2018-2019/schedule/2018-2019-Bundesliga-Scores-and-Fixtures",
-      "2019-2020": "https://fbref.com/en/comps/20/2019-2020/schedule/2019-2020-Bundesliga-Scores-and-Fixtures",
-      "2020-2021": "https://fbref.com/en/comps/20/2020-2021/schedule/2020-2021-Bundesliga-Scores-and-Fixtures",
-      "2021-2022": "https://fbref.com/en/comps/20/2021-2022/schedule/2020-2021-Bundesliga-Scores-and-Fixtures",
-      "2022-2023": "https://fbref.com/en/comps/20/schedule/Bundesliga-Scores-and-Fixtures"
-    },
-    "La_Liga": {
-      "2017-2018": "https://fbref.com/en/comps/12/2017-2018/schedule/2017-2018-La-Liga-Scores-and-Fixtures",
-      "2018-2019": "https://fbref.com/en/comps/12/2018-2019/schedule/2018-2019-La-Liga-Scores-and-Fixtures",
-      "2019-2020": "https://fbref.com/en/comps/12/2019-2020/schedule/2019-2020-La-Liga-Scores-and-Fixtures",
-      "2020-2021": "https://fbref.com/en/comps/12/2020-2021/schedule/2020-2021-La-Liga-Scores-and-Fixtures",
-      "2021-2022": "https://fbref.com/en/comps/12/2021-2022/schedule/2020-2021-La-Liga-Scores-and-Fixtures",
-      "2022-2023": "https://fbref.com/en/comps/12/schedule/La-Liga-Scores-and-Fixtures"
-    },
-    "Ligue_1": {
-      "2017-2018": "https://fbref.com/en/comps/13/2017-2018/schedule/2017-2018-Ligue-1-Scores-and-Fixtures",
-      "2018-2019": "https://fbref.com/en/comps/13/2018-2019/schedule/2018-2019-Ligue-1-Scores-and-Fixtures",
-      "2019-2020": "https://fbref.com/en/comps/13/2019-2020/schedule/2019-2020-Ligue-1-Scores-and-Fixtures",
-      "2020-2021": "https://fbref.com/en/comps/13/2020-2021/schedule/2020-2021-Ligue-1-Scores-and-Fixtures",
-      "2021-2022": "https://fbref.com/en/comps/13/2021-2022/schedule/2020-2021-Ligue-1-Scores-and-Fixtures",
-      "2022-2023": "https://fbref.com/en/comps/13/schedule/Ligue-1-Scores-and-Fixtures"
-    },
-    "Serie_A": {
-      "2017-2018": "https://fbref.com/en/comps/11/2017-2018/schedule/2017-2018-Serie-A-Scores-and-Fixtures",
-      "2018-2019": "https://fbref.com/en/comps/11/2018-2019/schedule/2018-2019-Serie-A-Scores-and-Fixtures",
-      "2019-2020": "https://fbref.com/en/comps/11/2019-2020/schedule/2019-2020-Serie-A-Scores-and-Fixtures",
-      "2020-2021": "https://fbref.com/en/comps/11/2020-2021/schedule/2020-2021-Serie-A-Scores-and-Fixtures",
-      "2021-2022": "https://fbref.com/en/comps/11/2021-2022/schedule/2020-2021-Serie-A-Scores-and-Fixtures",
-      "2022-2023": "https://fbref.com/en/comps/11/schedule/Serie-A-Scores-and-Fixtures"
-    }
+  "competition_ids": {
+    "Premier_League": 9,
+    "Bundesliga": 20,
+    "La_Liga": 12,
+    "Ligue_1": 13,
+    "Serie_A": 11
   }
 }
