@@ -23,6 +23,8 @@ def update_local(competition, season):
         "948872ab",
         "ac3eb7f6",
         "d50b48fe",
+        "2c791569",
+        "f9a47a86",
     }
 
     ligue1_relegation = {
