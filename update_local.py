@@ -1,8 +1,9 @@
 import json
 import os
+import time
+
 import requests
 from bs4 import BeautifulSoup
-import time
 
 
 def update_local(competition, season):
@@ -38,12 +39,23 @@ def update_local(competition, season):
         "78ed8c0d",
     }
 
+    serie_a_relegation = {"e0449015"}
+
     other_ignore = {
         "e0a20cfe",  # SerieA_2020-2021 - Verona:Roma - Result Awarded - Registration Error
         "c34bbc21",  # Bundesliga_2021-2022 - Bochum:Monchengladbach - Abandoned - Fan Trouble
     }
 
-    ignored_matches = bundesliga_relegation | ligue1_relegation | other_ignore
+    ignored_matches = (
+        bundesliga_relegation | ligue1_relegation | serie_a_relegation | other_ignore
+    )
+
+    if not os.path.exists("web_pages"):
+        os.mkdir("web_pages")
+    if not os.path.exists(os.path.join("web_pages", competition)):
+        os.mkdir(os.path.join("web_pages", competition))
+    if not os.path.exists(os.path.join("web_pages", competition, season)):
+        os.mkdir(os.path.join("web_pages", competition, season))
 
     stored_files = set(os.listdir(os.path.join("web_pages", competition, season)))
     with open("db_helper.json", "r") as f:
@@ -73,13 +85,17 @@ def update_local(competition, season):
     print(f"Fetching {n} {'matches' if n > 1 else 'match'}")
     with requests.Session() as s:
         for number, match_id in enumerate(missing_match_ids):
-            time.sleep(3)
-            print(f"{competition} {season}: Fetching match number {number + 1} of {n} - ID: {match_id}")
+            time.sleep(6)
+            print(
+                f"{competition} {season}: Fetching match number {number + 1} of {n} - ID: {match_id}"
+            )
             url = f"https://fbref.com/en/matches/{match_id}/"
             resp = s.get(url).text
 
             if "Advanced data not yet available" in resp:
-                print(f"Full data for {competition} {season} match {match_id} is not yet available\n")
+                print(
+                    f"Full data for {competition} {season} match {match_id} is not yet available\n"
+                )
                 continue
 
             with open(

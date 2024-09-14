@@ -1,8 +1,9 @@
 import json
+
 import requests
 from bs4 import BeautifulSoup
-from utils import *
-import time
+
+from utils import insert
 
 
 def get_match_data(competition, season):
@@ -15,7 +16,6 @@ def get_match_data(competition, season):
         url = f"https://fbref.com/en/comps/{competition_id}/{season}/schedule/"
 
     with requests.Session() as s:
-        time.sleep(3)
         table = BeautifulSoup(s.get(url).text, "lxml").find("table")
         rows = table.find_all("tr")
 
@@ -37,13 +37,17 @@ def get_match_data(competition, season):
             p2 = float(row[4]) if row[4] != "" else None
             p3 = list(map(int, row[5].split("–")))
             p4 = float(row[6]) if row[6] != "" else None
-            p5 = [row[7]] + [int(row[8].replace(",", "")) if row[8] != "" else ""] + row[9:]
+            p5 = (
+                [row[7]]
+                + [int(row[8].replace(",", "")) if row[8] != "" else ""]
+                + row[9:]
+            )
 
             data.append([competition, season] + p1 + [p2] + p3 + [p4] + p5)
     return data
 
 
 def update_matches(cursor, competition, season):
-    cursor.execute(f"DELETE FROM Match WHERE competition = ? AND season = ?", (competition, season))
+    cursor.execute("DELETE FROM Match WHERE competition = ? AND season = ?", (competition, season))
     match_data = get_match_data(competition, season)
     insert(cursor, "Match", match_data)

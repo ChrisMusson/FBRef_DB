@@ -21,7 +21,7 @@ def insert(cursor, table_name, data):
 
 def get_matches_in_database(cursor, competition, season):
     matches = cursor.execute(
-        f"""SELECT DISTINCT s.match_id
+        """SELECT DISTINCT s.match_id
             FROM Summary s
             LEFT JOIN Match m
             ON s.match_id = m.match_id
