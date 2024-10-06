@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 
 from utils import insert
 
+import time
+
 
 def get_match_data(competition, season):
     # Note that matches where the full match data is not yet available will still be picked up here and inserted
@@ -16,6 +18,7 @@ def get_match_data(competition, season):
         url = f"https://fbref.com/en/comps/{competition_id}/{season}/schedule/"
 
     with requests.Session() as s:
+        time.sleep(6)
         table = BeautifulSoup(s.get(url).text, "lxml").find("table")
         rows = table.find_all("tr")
 
@@ -48,6 +51,8 @@ def get_match_data(competition, season):
 
 
 def update_matches(cursor, competition, season):
-    cursor.execute("DELETE FROM Match WHERE competition = ? AND season = ?", (competition, season))
+    cursor.execute(
+        "DELETE FROM Match WHERE competition = ? AND season = ?", (competition, season)
+    )
     match_data = get_match_data(competition, season)
     insert(cursor, "Match", match_data)

@@ -41,13 +41,72 @@ def update_local(competition, season):
 
     serie_a_relegation = {"e0449015"}
 
+    primeira_liga_relegation = {"c8cd6748", "65aab877", "fb49ed3b", "b4f01c0d"}
+
+    championship_relegation = {
+        "bffb3b8a",  # 2021-2022
+        "8d994b81",
+        "4216543d",
+        "0b847a0a",
+        "6b6beef8",
+        "cc45efca",  # 2022-2023
+        "f06587a0",
+        "1a587649",
+        "f41aa3c8",
+        "78ccd86d",
+        "4ca40ec1",  # 2023-2024
+        "882e5566",
+        "3d1b21b1",
+        "b1047caa",
+        "75957831",
+    }
+
+    eredivisie_relegation = {
+        "a672f305",  # 2022-2023
+        "09128e80",
+        "7c8dd541",
+        "c0a0e179",
+        "9fd3030e",
+        "0fff319f",
+        "26d8f7f2",
+        "3cf91762",
+        "f2cf0bb2",
+        "08d6ee8e",
+        "96853577",
+        "a2c1e2d6",
+    }
+
+    belgian_pro_league_relegation = {
+        "2446aa1b",  # 2021-2022
+        "b9de2b9d",
+        "53a3e9a1",  # 2023-2024
+        "8b4f3bc8",
+        "923b19a0",
+        "2a8c63ff",
+        "4f453cc2",
+        "cf18476c",
+        "ff05bbbc",
+        "a2c6c9e8",
+        "b5b0e366",
+        "7fc3135c",
+        "41b7a481",
+        "90ca2b04",
+    }
+
     other_ignore = {
         "e0a20cfe",  # SerieA_2020-2021 - Verona:Roma - Result Awarded - Registration Error
         "c34bbc21",  # Bundesliga_2021-2022 - Bochum:Monchengladbach - Abandoned - Fan Trouble
     }
 
     ignored_matches = (
-        bundesliga_relegation | ligue1_relegation | serie_a_relegation | other_ignore
+        bundesliga_relegation
+        | ligue1_relegation
+        | serie_a_relegation
+        | primeira_liga_relegation
+        | championship_relegation
+        | eredivisie_relegation
+        | belgian_pro_league_relegation
+        | other_ignore
     )
 
     if not os.path.exists("web_pages"):

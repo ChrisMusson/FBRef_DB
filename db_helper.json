@@ -22,6 +22,7 @@
       "player_id": "char(8) NOT NULL",
       "name": "varchar",
       "home_away": "char(1)",
+      "started_match": "int",
       "squad_number": "int",
       "nation": "varchar",
       "position": "varchar",
@@ -198,6 +199,12 @@
     "Bundesliga": 20,
     "La_Liga": 12,
     "Ligue_1": 13,
-    "Serie_A": 11
+    "Serie_A": 11,
+    "Championship": 10,
+    "Eredivisie": 23,
+    "Primeira_Liga": 32,
+    "Belgian_Pro_League": 37,
+    "Argentine_Copa_de_la_Liga": 21,
+    "Brazilian_Serie_A": 24
   }
 }
