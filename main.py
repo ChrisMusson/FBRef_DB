@@ -31,7 +31,17 @@ def main(database_file, competitions=["Premier_League"], seasons=["2021-2022"]):
 
 
 if __name__ == "__main__":
-    competitions = ["Premier_League", "Bundesliga", "La_Liga", "Ligue_1", "Serie_A"]
+    competitions = [
+        "Premier_League",
+        # "Bundesliga",
+        # "La_Liga",
+        # "Ligue_1",
+        # "Serie_A",
+        # "Primeira_Liga",
+        # "Championship",
+        # "Eredivisie",
+        # "Belgian_Pro_League",
+    ]
     seasons = [
         # "2017-2018",
         # "2018-2019",
@@ -43,3 +53,15 @@ if __name__ == "__main__":
         "2024-2025",
     ]
     main("master.db", competitions=competitions, seasons=seasons)
+
+    special_comps = [
+        # "Argentine_Copa_de_la_Liga",
+        # "Brazilian_Serie_A",
+    ]
+    special_seasons = [
+        # "2021",
+        # "2022",
+        # "2023",
+        # "2024",
+    ]
+    main("master.db", competitions=special_comps, seasons=special_seasons)
