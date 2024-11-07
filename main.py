@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import time
 
 from create_database import create_database
 from matches import update_matches
@@ -27,6 +28,17 @@ def main(database_file, competitions=["Premier_League"], seasons=["2021-2022"]):
             insert_players(cursor, competition, season, list(matches_to_add))
 
             connection.commit()
+
+            if len(matches_to_add) <= 20:
+                print(
+                    "Didn't need to add many files to the database. Sleeping to avoid rate limit"
+                )
+                """
+                I have done lots of testing to see what sleep length is required to not get put in FBRef jail.
+                It's annoying and slow, but 7 seconds is required
+                """
+                time.sleep(7)
+
     connection.close()
 
 

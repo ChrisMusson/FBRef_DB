@@ -22,6 +22,7 @@
       "player_id": "char(8) NOT NULL",
       "name": "varchar",
       "home_away": "char(1)",
+      "start": "int",
       "squad_number": "int",
       "nation": "varchar",
       "position": "varchar",

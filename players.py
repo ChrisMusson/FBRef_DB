@@ -21,8 +21,12 @@ def get_player_info(match_id, tables):
             player_id = row.find("th").find("a")["href"].split("/")[3]
             player_name = row.find("a").text
             home_away = "H" if table_num < 10 else "A"
+            started_match = row.text[0].isalpha()
             rest_of_row = clean_row([x.text for x in row.find_all("td")][:5])
-            data.append([match_id, player_id, player_name, home_away] + rest_of_row)
+            data.append(
+                [match_id, player_id, player_name, home_away, started_match]
+                + rest_of_row
+            )
     return data
 
 
