@@ -2,7 +2,7 @@
 
 ## Usage
 
-1. Download the .zip files for the leagues you want in your database from this [MediaFire link](https://www.mediafire.com/folder/7s88iqido6nvc/FBRef). (Last updated 14/Sep/2024)
+1. Download the .zip files for the leagues you want in your database from this [Google Drive link](https://drive.google.com/drive/folders/1t34zhIvlk-2M0F_2v-7wvdf1mep9Kq-C?usp=drive_link). (Last updated 8/Nov/2024)
 
 1. Unzip those downloaded files to the `web_pages/` folder - this creates a folder containing the html of the fbref web page for every league match since the start of the 2017-2018 season for your chosen leagues. The structure of the folders must be `./web_pages/<league>/<season>/file`
 
@@ -12,4 +12,4 @@
 
 You can then use a program like [DB Browser](https://sqlitebrowser.org/dl/) to explore this data using SQL queries. An overview of the database structure can be found [here](https://dbdiagram.io/d/62221bf854f9ad109a5e298c).
 
-Note that `master.db` file in this repo only contains Premier League data, but the latest version of all_leagues.db is also present in the MediaFire link.
+Note that `master.db` file in this repo contains data for all of the top 5 leagues, and the latest version of `premier_league.db` (only containing Premier League data) is also present at the Google Drive link.
