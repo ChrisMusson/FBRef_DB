@@ -8,7 +8,7 @@ from utils import clean_row, insert
 def get_match_data(competition, season, match_id):
     filepath = os.path.join("web_pages", competition, season, match_id)
     with open(filepath, "r", encoding="utf-8") as f:
-        return BeautifulSoup(f.read(), "lxml").find_all("table")
+        return BeautifulSoup(f.read(), "html.parser").find_all("table")
 
 
 def get_player_info(match_id, tables):
