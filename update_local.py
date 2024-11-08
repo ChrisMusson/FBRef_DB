@@ -5,6 +5,8 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+from utils import ignore
+
 
 def update_local(competition, season):
     # set of matches to ignore for various reasons
@@ -13,42 +15,8 @@ def update_local(competition, season):
     # FBRef has no player data for these matches anyway
     # Other matches that have been abandoned are also included, such as Bochum vs. Monchengladbach,
     # where the game was abandoned after an assistant referee was hit by something thrown from the stands
-    bundesliga_relegation = {
-        "5dc40876",
-        "9c6a24db",
-        "e262266b",
-        "f5e7a5c2",
-        "434865ef",
-        "2f2a35fa",
-        "dc47142c",
-        "948872ab",
-        "ac3eb7f6",
-        "d50b48fe",
-        "2c791569",
-        "f9a47a86",
-    }
 
-    ligue1_relegation = {
-        "f927719d",
-        "06517ea5",
-        "bfd434c1",
-        "ea5db1c4",
-        "621f8a81",
-        "28ce9808",
-        "f1560d55",
-        "78ed8c0d",
-    }
-
-    serie_a_relegation = {"e0449015"}
-
-    other_ignore = {
-        "e0a20cfe",  # SerieA_2020-2021 - Verona:Roma - Result Awarded - Registration Error
-        "c34bbc21",  # Bundesliga_2021-2022 - Bochum:Monchengladbach - Abandoned - Fan Trouble
-    }
-
-    ignored_matches = (
-        bundesliga_relegation | ligue1_relegation | serie_a_relegation | other_ignore
-    )
+    ignored_matches = set.union(*ignore.values())
 
     if not os.path.exists("web_pages"):
         os.mkdir("web_pages")
@@ -59,7 +27,7 @@ def update_local(competition, season):
 
     stored_files = set(os.listdir(os.path.join("web_pages", competition, season)))
     with open("db_helper.json", "r") as f:
-        competition_id = json.load(f)["competition_ids"][competition]
+        competition_id = json.load(f)["competitions"][competition]["id"]
         url = f"https://fbref.com/en/comps/{competition_id}/{season}/schedule/"
 
     web_match_ids = set()

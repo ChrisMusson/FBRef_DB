@@ -3,7 +3,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-from utils import insert
+from utils import ignore, insert
 
 
 def get_match_data(competition, season):
@@ -12,7 +12,7 @@ def get_match_data(competition, season):
     # updated matches will be put back into the Match table when they get updated
     data = []
     with open("db_helper.json", "r") as f:
-        competition_id = json.load(f)["competition_ids"][competition]
+        competition_id = json.load(f)["competitions"][competition]["id"]
         url = f"https://fbref.com/en/comps/{competition_id}/{season}/schedule/"
 
     with requests.Session() as s:
@@ -23,11 +23,14 @@ def get_match_data(competition, season):
         # or promotion-relegation playoff. This has to be taken into account when deciding which
         # columns to look at
         multistage: bool = rows[0].find("th")["data-stat"] == "round"
+        match_ids_ignore = set.union(*ignore.values())
 
         for row in rows[1:]:
             if row.find_all("td")[-3].text == "":  # if referee field is blank
                 continue
             match_id = row.find_all("a")[-1]["href"].split("/")[3]
+            if match_id in match_ids_ignore:  # don't even want to write the match info to Match table
+                continue
 
             # if the season has multiple stages, start from column index 1 instead of 0
             row = [x.text.strip() for x in row.find_all("td")][multistage:-2]

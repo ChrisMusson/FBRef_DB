@@ -194,11 +194,12 @@
       "average_distance_of_defensive_action": "float"
     }
   },
-  "competition_ids": {
-    "Premier_League": 9,
-    "Bundesliga": 20,
-    "La_Liga": 12,
-    "Ligue_1": 13,
-    "Serie_A": 11
+  "competitions": {
+    "Premier_League": {"id": 9, "start_year": 2017, "end_year": 2024},
+    "Bundesliga": {"id": 20, "start_year": 2017, "end_year": 2024},
+    "La_Liga": {"id": 12, "start_year": 2017, "end_year": 2024},
+    "Ligue_1": {"id": 13, "start_year": 2017, "end_year": 2024},
+    "Serie_A": {"id": 11, "start_year": 2017, "end_year": 2024},
+    "Primeira_Liga": {"id": 32, "start_year": 2018, "end_year": 2024}
   }
 }

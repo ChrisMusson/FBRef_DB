@@ -1,3 +1,4 @@
+import json
 import os
 import sqlite3
 import time
@@ -16,6 +17,15 @@ def main(database_file, competitions=["Premier_League"], seasons=["2021-2022"]):
 
     for competition in competitions:
         for season in seasons:
+            with open("db_helper.json", "r") as f:
+                comp = json.load(f)["competitions"][competition]
+                season_start = int(season.split("-")[0])
+
+                if comp["start_year"] > season_start or comp["end_year"] < season_start:
+                    print(
+                        f"xG data doesn't exist for the {season} {competition} season"
+                    )
+                    continue
             update_local(competition, season)
             update_matches(cursor, competition, season)
 
@@ -43,7 +53,7 @@ def main(database_file, competitions=["Premier_League"], seasons=["2021-2022"]):
 
 
 if __name__ == "__main__":
-    competitions = ["Premier_League", "Bundesliga", "La_Liga", "Ligue_1", "Serie_A"]
+    competitions = ["Premier_League", "Bundesliga", "La_Liga", "Ligue_1", "Serie_A", "Primeira_Liga"]
     seasons = [
         # "2017-2018",
         # "2018-2019",
