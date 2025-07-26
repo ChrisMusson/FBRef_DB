@@ -1,0 +1,1 @@
+find web_pages/ -type f -size -400k -print -delete
