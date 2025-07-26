@@ -2,3 +2,6 @@ web_pages/
 __pycache__/
 test.db
 test.py
+master.db
+premier_league.db
+uv.lock
