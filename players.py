@@ -98,11 +98,16 @@ def insert_players(cursor, competition, season, match_ids):
     print(f"Starting match processing for {len(match_ids)} matches...")
 
     with ProcessPoolExecutor() as executor:
-        futures = [executor.submit(process_single_match, match_id, competition, season, db_tables) for match_id in match_ids]
+        # Map each future to its match_id
+        future_to_match_id = {executor.submit(process_single_match, match_id, competition, season, db_tables): match_id for match_id in match_ids}
 
-        for future in tqdm(as_completed(futures), total=len(futures), desc="Parsing matches"):
+        for future in tqdm(as_completed(future_to_match_id), total=len(future_to_match_id), desc="Parsing matches"):
+            match_id = future_to_match_id[future]
             try:
-                match_id, season_data, player_info, goalkeeper = future.result()
+                result = future.result()
+                if result is None:
+                    raise ValueError("process_single_match returned None")
+                match_id, season_data, player_info, goalkeeper = result
                 if season_data is None:
                     handle_insert_player_error(match_id)
                     continue
@@ -113,18 +118,11 @@ def insert_players(cursor, competition, season, match_ids):
                     season_data_agg[t].extend(season_data[t])
 
             except Exception as e:
-                # If an exception happens, get match_id if possible from the future,
-                # else just log it generically.
-                # Unfortunately, future.result() raises here so we can't get match_id cleanly.
-                # One approach: wrap process_single_match to catch and return errors with match_id.
-                print(f"\nError processing a match: {e}")
-                # Optionally print traceback:
+                print(f"\nError processing match ID {match_id}: {e}")
                 import traceback
 
                 traceback.print_exc()
-
-                # We can't get match_id here, so just print generic message.
-                print("Problem processing a match (match ID unknown).")
+                handle_insert_player_error(match_id)
 
     print(f"Inserting player data for {competition} {season}")
     insert(cursor, "Player_info", all_player_info)
