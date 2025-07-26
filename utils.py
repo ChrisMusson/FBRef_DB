@@ -37,6 +37,7 @@ ignore = {
     "serie_a": {
         "e0449015",  # 22-23 relegation tie-breaker
         "e0a20cfe",  # 20-21 - Hellas_Verona:Roma - Result Awarded - Registration Error
+        "f7e35659",  # 24-25 - Fiorentina:Inter - Match Suspended - Player Injury
     },
     "primeira_liga": {
         "3f514a62",  # 20-21 relegation/promotion leg 1
