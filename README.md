@@ -36,7 +36,7 @@ A tool to compile player and team statistics from FBRef match reports into a loc
 
 1. **Download match data:**
 
-   Download the `.zip` files for the leagues you want from this [Google Drive link](https://drive.google.com/drive/folders/1t34zhIvlk-2M0F_2v-7wvdf1mep9Kq-C?usp=drive_link). (Last updated 09 November 2025)
+   Download the `.zip` files for the leagues you want from this [Google Drive link](https://drive.google.com/drive/folders/1t34zhIvlk-2M0F_2v-7wvdf1mep9Kq-C?usp=drive_link). (Last updated 26 July 2025)
 
 2. **Extract files:**
 
