@@ -2,8 +2,8 @@ import json
 import os
 import time
 
-import requests
 from bs4 import BeautifulSoup
+from curl_cffi import requests
 
 from utils import ignore
 
@@ -54,16 +54,12 @@ def update_local(competition, season):
     with requests.Session() as s:
         for number, match_id in enumerate(missing_match_ids):
             time.sleep(6)
-            print(
-                f"{competition} {season}: Fetching match number {number + 1} of {n} - ID: {match_id}"
-            )
+            print(f"{competition} {season}: Fetching match number {number + 1} of {n} - ID: {match_id}")
             url = f"https://fbref.com/en/matches/{match_id}/"
             resp = s.get(url).text
 
             if "Advanced data not yet available" in resp:
-                print(
-                    f"Full data for {competition} {season} match {match_id} is not yet available\n"
-                )
+                print(f"Full data for {competition} {season} match {match_id} is not yet available\n")
                 continue
 
             with open(

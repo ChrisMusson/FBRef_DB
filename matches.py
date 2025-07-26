@@ -1,7 +1,7 @@
 import json
 
-import requests
 from bs4 import BeautifulSoup
+from curl_cffi import requests
 
 from utils import ignore, insert
 
@@ -40,11 +40,7 @@ def get_match_data(competition, season):
             p2 = float(row[4]) if row[4] != "" else None
             p3 = list(map(int, row[5].split("–")))
             p4 = float(row[6]) if row[6] != "" else None
-            p5 = (
-                [row[7]]
-                + [int(row[8].replace(",", "")) if row[8] != "" else ""]
-                + row[9:]
-            )
+            p5 = [row[7]] + [int(row[8].replace(",", "")) if row[8] != "" else ""] + row[9:]
 
             data.append([competition, season] + p1 + [p2] + p3 + [p4] + p5)
     return data
