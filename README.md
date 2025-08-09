@@ -55,10 +55,12 @@ A tool to compile player and team statistics from FBRef match reports into a loc
 
 3. **Edit `main.py` to specify your leagues:**
 
-   If you downloaded more than just the Premier League data, change the `competitions` argument in the `main()` call:
+    By default, `main.py` is set to process the 2024-2025 season for the top 6 European leagues. You can modify the `competitions` and `seasons` lists to include/exclude the leagues and seasons you want to process.
 
    ```python
-   main(competitions=["Premier_League", "La_Liga", "Ligue_1"])
+    competitions = ["Premier_League", "Bundesliga", "La_Liga", "Ligue_1", "Serie_A", "Primeira_Liga"]
+    seasons = ["2023-2024", "2024-2025"]
+    main("master.db", competitions=competitions, seasons=seasons)
    ```
 
 4. **Run the script:**
