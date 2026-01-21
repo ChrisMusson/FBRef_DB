@@ -1,8 +1,15 @@
-# FBRef_DB
+# Archived
+This project is archived due to FBRef [no longer having xG data](https://www.sports-reference.com/blog/2026/01/fbref-stathead-data-update/]) available on their website. There are multiple things one would need to change to get this repository to work from the current state it is in - I have fixed it locally, but the changes are messy and liable to change very often so don't feel it is worth updating until there is more clarity on the future of FBRef. The web pages and the master database can be downloaded from this [Google Drive link](https://drive.google.com/drive/folders/1t34zhIvlk-2M0F_2v-7wvdf1mep9Kq-C?usp=drive_link). The matches included in the dataset are all the valid matches (not abandoned, e.g.) in the date ranges below:
+
+![FBRef data date ranges](https://i.imgur.com/0ckkXv1.png)
+
+The rest of this README.md is unaltered from how it was when the project wasn't archived.
+
+## FBRef_DB
 
 A tool to compile player and team statistics from FBRef match reports into a local SQLite database.
 
-## Setup
+### Setup
 
 1. **Clone the repository:**
 
@@ -32,11 +39,11 @@ A tool to compile player and team statistics from FBRef match reports into a loc
    uv pip install .
    ```
 
-## Usage
+### Usage
 
 1. **Download match data:**
 
-   Download the `.zip` files for the leagues you want from this [Google Drive link](https://drive.google.com/drive/folders/1t34zhIvlk-2M0F_2v-7wvdf1mep9Kq-C?usp=drive_link). (Last updated 26 July 2025)
+   Download the `.zip` files for the leagues you want from this [Google Drive link](https://drive.google.com/drive/folders/1t34zhIvlk-2M0F_2v-7wvdf1mep9Kq-C?usp=drive_link). (Last updated 15 Jan 2026)
 
 2. **Extract files:**
 
@@ -75,14 +82,14 @@ A tool to compile player and team statistics from FBRef match reports into a loc
    - Parse the HTML pages
    - Populate/update the `master.db` SQLite database
 
-## Explore the Data
+### Explore the Data
 
 Use [DB Browser for SQLite](https://sqlitebrowser.org/dl/) to explore `master.db` or `premier_league.db`.
 
 A visual overview of the database schema is available here:  
 https://dbdiagram.io/d/62221bf854f9ad109a5e298c
 
-## Notes
+### Notes
 
 - The `master.db` file in this repo contains all top 6 European leagues.
 - A `premier_league.db` file (only Premier League) is available in the Google Drive link.
